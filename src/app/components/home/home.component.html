@@ -1,0 +1,122 @@
+<div class="form-content" *ngIf="addUser === true || editUser === true">
+  <mat-card>
+    <mat-card-content>
+      <form
+        [formGroup]="createUserForm"
+        (ngSubmit)="onSubmitUser(createUserForm)"
+      >
+        <mat-toolbar color="primary" class="form-toolbar">
+          <span>{{ headerText }} user</span>
+        </mat-toolbar>
+        <mat-form-field class="full-width-input">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required />
+          <mat-error *ngIf="isFieldInvalid('firstName')">
+            Please enter your first name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required />
+          <mat-error *ngIf="isFieldInvalid('lastName')">
+            Please enter your last name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="isFieldInvalid('email')">
+            Please enter your email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" required />
+          <mat-error *ngIf="isFieldInvalid('phoneNumber')">
+            Please enter your phone number
+          </mat-error>
+        </mat-form-field>
+        <button
+          class="login-button"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          {{ buttonText }} User
+        </button>
+      </form>
+      <p>
+        <span>
+          <a href="#" (click)="showUsers($event)"
+            >Go back to see list of users</a
+          ></span
+        >
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="container">
+  <button
+    class="login-button"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="additionOfUser()"
+    *ngIf="crudOperation === false"
+  >
+    Create a New User
+  </button>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    *ngIf="addUser === false && editUser === false"
+  >
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          class="iconbutton"
+          (click)="updationOfUser(element)"
+          color="primary"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          class="iconbutton"
+          (click)="deleteUser(element.id)"
+          color="warn"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

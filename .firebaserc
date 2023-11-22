@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crud-firebase-e1604": {
+      "hosting": {
+        "crudApp-firebase": [
+          "crud-firebase-e1604"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crud-firebase-e1604"
+  }
+}
